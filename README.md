@@ -1,23 +1,12 @@
-
-
 # Socket-Server
 
+## Marco Antonio Diaz Diaz
 
-Reconstruir módulos de Node
-```
-npm install
-```
+### Servidor de Sockets para el Chat de Servicio Automotriz Diaz.
 
-Generar el DIST
-```
-tsc -w
-```
+Levantar servidor:
 
-Levantar servidor, cualquiera de estos dos comandos
 ```
 nodemon dist/
 node dist/
 ```
-
-
-
