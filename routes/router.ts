@@ -1,50 +1,39 @@
-
 import { Router, Request, Response } from 'express';
+import * as clientes from './clientes.routes';
 
-const router = Router();
+const app = Router();
 
+export { app };
 
-
-router.get('/mensajes', ( req: Request, res: Response  ) => {
-
-    res.json({
-        ok: true,
-        mensaje: 'Todo esta bien!!'
-    });
-
+app.get('/mensajes', (req: Request, res: Response) => {
+  res.json({
+    ok: true,
+    mensaje: 'Todo esta bien!!'
+  });
 });
 
-router.post('/mensajes', ( req: Request, res: Response  ) => {
+app.post('/mensajes', (req: Request, res: Response) => {
+  const cuerpo = req.body.cuerpo;
+  const de = req.body.de;
 
-    const cuerpo = req.body.cuerpo;
-    const de     = req.body.de;
-
-    res.json({
-        ok: true,
-        cuerpo,
-        de
-    });
-
+  res.json({
+    ok: true,
+    cuerpo,
+    de
+  });
 });
 
+app.post('/mensajes/:id', (req: Request, res: Response) => {
+  const cuerpo = req.body.cuerpo;
+  const de = req.body.de;
+  const id = req.params.id;
 
-router.post('/mensajes/:id', ( req: Request, res: Response  ) => {
-
-    const cuerpo = req.body.cuerpo;
-    const de     = req.body.de;
-    const id     = req.params.id;
-
-    res.json({
-        ok: true,
-        cuerpo,
-        de,
-        id
-    });
-
+  res.json({
+    ok: true,
+    cuerpo,
+    de,
+    id
+  });
 });
 
-
-
-export default router;
-
-
+export default app;

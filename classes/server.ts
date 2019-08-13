@@ -3,6 +3,8 @@ import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io';
 import http from 'http';
 import * as socket from '../sockets/sockets';
+import mongoose from 'mongoose';
+import { MongoError } from 'mongodb';
 
 export default class Server {
   private static _instance: Server;
@@ -19,6 +21,7 @@ export default class Server {
     this.httpServer = new http.Server(this.app);
     this.io = socketIO(this.httpServer);
     this.escucharSockets();
+    this.mongoConnect();
   }
 
   public static get instance() {
@@ -34,6 +37,17 @@ export default class Server {
       // Desconetar
       socket.desconectar(cliente);
     });
+  }
+
+  private mongoConnect() {
+    mongoose.connect(
+      'mongodb+srv://marco_diaz:pataPON3@cluster0-jm5fl.mongodb.net/sautdiaz?retryWrites=true&w=majority',
+      { useNewUrlParser: true, useCreateIndex: true },
+      (err: MongoError) => {
+        if (err) throw err;
+        console.log('ATLAS conectado.');
+      }
+    );
   }
 
   start(callback: Function) {
