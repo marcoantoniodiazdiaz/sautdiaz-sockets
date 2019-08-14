@@ -98,7 +98,7 @@ app.post(
       telefono: body.telefono
     });
 
-    clientes.save((err, data) => {
+    Clientes.create(clientes, (err: MongoError, data: any) => {
       if (err) {
         return res.status(400).json({
           ok: false,
