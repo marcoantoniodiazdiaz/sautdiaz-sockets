@@ -1,9 +1,11 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { IVehiculos } from './vehiculos.interface';
+import { ITrabajadores } from './trabajadores.interface';
 
 export interface IServicios extends Document {
   fecha: string;
-  vehiculo: string;
-  trabajador: string;
+  vehiculo: IVehiculos;
+  trabajador: ITrabajadores;
   estado: string;
 }
 

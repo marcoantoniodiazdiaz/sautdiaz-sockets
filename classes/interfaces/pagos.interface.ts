@@ -1,8 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { IServicios } from './servicios.interface';
 
 export interface IPagos extends Document {
   movimiento: string;
-  servicio: string;
+  servicio: IServicios;
 }
 
 const PagosSchema: Schema = new Schema({

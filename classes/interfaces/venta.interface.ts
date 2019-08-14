@@ -1,9 +1,10 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { IProducto } from './producto.interface';
 
 export interface IVenta extends Document {
-  productos: string;
+  producto: IProducto;
   cantidad: string;
-  venta: string;
+  servicio: string;
 }
 
 const VentaSchema: Schema = new Schema({
@@ -16,11 +17,11 @@ const VentaSchema: Schema = new Schema({
     type: String,
     required: [true, 'El campo cantidad es requerido']
   },
-  venta: {
+  servicio: {
     type: Schema.Types.ObjectId,
-    required: [true, 'El campo venta es requerido'],
-    ref: 'Mostrador'
+    required: [true, 'El campo servicio es requerido'],
+    ref: 'Servicios'
   }
 });
 
-export default mongoose.model<IVenta>('VentaMostrador', VentaSchema);
+export default mongoose.model<IVenta>('Ventas', VentaSchema);

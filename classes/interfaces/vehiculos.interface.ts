@@ -1,12 +1,15 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { ICliente } from './cliente.interface';
 
 export interface IVehiculos extends Document {
+  placa: string;
   nombre: string;
   marca: string;
   submarca: string;
   color: string;
   modelo: string;
-  cliente: string;
+  cliente: ICliente;
+  motor: string;
 }
 
 const VehiculosSchema: Schema = new Schema({

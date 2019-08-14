@@ -1,8 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { IDepartamentos } from './departamentos.interface';
 
 export interface IProducto extends Document {
   nombre: string;
-  departamento: string;
+  departamento: IDepartamentos;
   codigo: string;
   precio: string;
   compra: string;

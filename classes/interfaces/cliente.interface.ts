@@ -7,18 +7,49 @@ export interface ICliente extends Document {
   colonia: string;
   telefono: string;
   email: string;
+  role: string;
+  password: string;
+  activated: string;
+  devices: Object;
 }
 
 const ClienteSchema: Schema = new Schema({
-  nombre: { type: String, required: [true, 'El nombre es un campo requerido'] },
-  calle: { type: String, required: false },
-  numero: { type: String, required: false },
-  colonia: { type: String, required: false },
+  nombre: {
+    type: String,
+    required: [true, 'El campo nombre es requerido']
+  },
+  calle: {
+    type: String
+  },
+  numero: {
+    type: String
+  },
+  colonia: {
+    type: String
+  },
+  email: {
+    type: String
+  },
   telefono: {
     type: String,
-    required: [true, 'El telefono es un campo requerido']
+    required: [true, 'El campo telefono es requerido']
   },
-  email: { type: String, required: false }
+  role: {
+    type: String,
+    default: 'USER_ROLE'
+  },
+  password: {
+    type: String,
+    default: 'default'
+  },
+  activated: {
+    type: Boolean,
+    default: false
+  },
+  devices: {
+    type: Array,
+    default: []
+  }
 });
 
 // Export the model and return your IUser interface

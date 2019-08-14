@@ -1,7 +1,8 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { IProducto } from './producto.interface';
 
 export interface IVentaMostrador extends Document {
-  productos: string;
+  producto: IProducto;
   cantidad: string;
   venta: string;
 }
