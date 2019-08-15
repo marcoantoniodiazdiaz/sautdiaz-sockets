@@ -12,6 +12,9 @@
         "watch-node": "nodemon dist/index.js",
         "watch-ts": "tsc -w"
     },
+    "engines": {
+        "node": "8.11.4"
+    },
     "author": "",
     "license": "ISC",
     "dependencies": {
