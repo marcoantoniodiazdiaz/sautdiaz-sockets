@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import * as clientes from './clientes.routes';
 import Server from '../classes/server';
+import { usuariosConectados } from '../sockets/sockets';
 
 const app = Router();
 
@@ -52,6 +52,35 @@ app.post('/mensajes/:id', (req: Request, res: Response) => {
     body,
     from,
     id
+  });
+});
+
+app.get('/usuarios', (req: Request, res: Response) => {
+  const server = Server.instance;
+
+  server.io.clients((err: any, clients: string) => {
+    if (err) {
+      return res.json({
+        ok: false,
+        err
+      });
+    }
+
+    res.json({
+      ok: true,
+      clients
+    });
+  });
+});
+
+app.get('/usuarios/inf', (req: Request, res: Response) => {
+  const server = Server.instance;
+
+  usuariosConectados;
+
+  res.json({
+    ok: true,
+    clients: usuariosConectados.getUsers()
   });
 });
 
