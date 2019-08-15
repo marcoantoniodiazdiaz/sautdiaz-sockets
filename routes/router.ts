@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import * as clientes from './clientes.routes';
+import Server from '../classes/server';
 
 const app = Router();
 
@@ -13,25 +14,43 @@ app.get('/mensajes', (req: Request, res: Response) => {
 });
 
 app.post('/mensajes', (req: Request, res: Response) => {
-  const cuerpo = req.body.cuerpo;
-  const de = req.body.de;
+  const body = req.body.body;
+  const from = req.body.from;
+
+  const server = Server.instance;
+
+  const payload = {
+    from,
+    body
+  };
+
+  server.io.emit('newMessages', payload);
 
   res.json({
     ok: true,
-    cuerpo,
-    de
+    body,
+    from
   });
 });
 
 app.post('/mensajes/:id', (req: Request, res: Response) => {
-  const cuerpo = req.body.cuerpo;
-  const de = req.body.de;
+  const body = req.body.body;
+  const from = req.body.from;
   const id = req.params.id;
+
+  const server = Server.instance;
+
+  const payload = {
+    from,
+    body
+  };
+
+  server.io.in(id).emit('private-message', payload);
 
   res.json({
     ok: true,
-    cuerpo,
-    de,
+    body,
+    from,
     id
   });
 });
