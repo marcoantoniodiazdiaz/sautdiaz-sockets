@@ -27,6 +27,11 @@ const ServiciosSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     required: [true, 'El campo vehiculo es requerido'],
     ref: 'Trabajadores'
+  },
+  chat: {
+    type: Array,
+    required: false,
+    default: []
   }
 });
 

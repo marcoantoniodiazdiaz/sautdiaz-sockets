@@ -9,7 +9,6 @@ import {
 import * as _ from 'underscore';
 
 import { app } from './router';
-import { MongoError } from 'mongodb';
 
 app.get('/mostrador', verificaToken, (req, res) => {
   Mostrador.find({})

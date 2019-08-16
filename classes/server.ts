@@ -1,5 +1,5 @@
 import express from 'express';
-import { SERVER_PORT } from '../global/environment';
+import { SERVER_PORT, URL_DB } from '../global/environment';
 import socketIO from 'socket.io';
 import http from 'http';
 import * as socket from '../sockets/sockets';
@@ -45,7 +45,8 @@ export default class Server {
 
   private mongoConnect() {
     mongoose.connect(
-      'mongodb+srv://marco_diaz:pataPON3@cluster0-jm5fl.mongodb.net/sautdiaz?retryWrites=true&w=majority',
+      //'mongodb+srv://marco_diaz:pataPON3@cluster0-jm5fl.mongodb.net/sautdiaz?retryWrites=true&w=majority',
+      URL_DB,
       { useNewUrlParser: true, useCreateIndex: true },
       (err: MongoError) => {
         if (err) throw err;

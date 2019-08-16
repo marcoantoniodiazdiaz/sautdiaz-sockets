@@ -2,6 +2,9 @@ import { Socket } from 'socket.io';
 import socketIO from 'socket.io';
 import { UsuariosLista } from '../classes/usuarios-lista';
 import { Usuario } from '../classes/usuarios';
+import Servicios, {
+  IServicios
+} from '../classes/interfaces/servicios.interface';
 
 export const usuariosConectados = new UsuariosLista();
 
@@ -20,7 +23,30 @@ export const desconectar = (cliente: Socket) => {
 
 // Escuchar mensajes
 export const mensaje = (cliente: Socket, io: socketIO.Server) => {
-  cliente.on('mensaje', (payload: { from: string; body: string }, callback) => {
+  cliente.on('mensaje', (payload: any, callback) => {
+    let mensaje = {
+      from: payload['from'],
+      body: payload['body'],
+      date: payload['date']
+    };
+
+    const servicio = payload['servicio'];
+
+    Servicios.findByIdAndUpdate(
+      servicio,
+      {
+        $push: {
+          chat: mensaje
+        }
+      },
+      { new: true, runValidators: true },
+      (err, data) => {
+        if (err) {
+          return;
+        }
+      }
+    );
+
     io.emit('newMessages', payload);
   });
 };

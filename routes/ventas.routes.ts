@@ -54,7 +54,7 @@ app.get(
         let mo = 0;
         let totalCompra = 0;
 
-        console.log(data[0].producto);
+        // console.log(data[0]);
 
         for (let i = 0; i < data.length; i++) {
           total += +data[i].producto.precio * +data[i].cantidad;
@@ -88,7 +88,7 @@ app.post(
       servicio: body.servicio
     });
 
-    ventas.save((err, ventas) => {
+    ventas.save((err, data) => {
       if (err) {
         return res.status(400).json({
           ok: false,
@@ -98,7 +98,7 @@ app.post(
 
       res.json({
         ok: true,
-        ventas
+        data
       });
     });
   }
