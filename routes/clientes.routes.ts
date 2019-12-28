@@ -50,8 +50,7 @@ app.get('/clientes/:id', [verificaToken], (req: Request, res: Response) => {
   });
 });
 
-app.get(
-  '/clientes/nombre/:nombre',
+app.get('/clientes/nombre/:nombre',
   [verificaToken],
   (req: Request, res: Response) => {
     let nombre = req.params.nombre;

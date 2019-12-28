@@ -13,7 +13,7 @@ export const verificaToken = (req: any, res: any, next: Function) => {
         ok: false,
         err: {
           // message: 'Token no válido'
-          message: 'Acceso denegado a Sautdiaz Server'
+          message: 'Acceso denegado al Sautdiaz Server'
         }
       });
     }
