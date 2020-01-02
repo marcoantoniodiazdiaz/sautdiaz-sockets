@@ -1,7 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { IVehiculos } from './vehiculos.interface';
 import { ITrabajadores } from './trabajadores.interface';
-
 export interface IServicios extends Document {
   fecha: string;
   vehiculo: IVehiculos;
@@ -28,7 +27,16 @@ const ServiciosSchema: Schema = new Schema({
     required: [true, 'El campo vehiculo es requerido'],
     ref: 'Trabajadores'
   },
+  // productos: {
+  //   type: [{ type: Schema.Types.ObjectId, ref: 'Productos' }],
+  //   required: false,
+  // },
   chat: {
+    type: Array,
+    required: false,
+    default: []
+  },
+  pagos: {
     type: Array,
     required: false,
     default: []

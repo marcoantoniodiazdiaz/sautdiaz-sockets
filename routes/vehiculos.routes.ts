@@ -29,6 +29,33 @@ app.get('/vehiculos', verificaToken, (req: Request, res: Response) => {
     });
 });
 
+// Vehiculo por ID
+app.get(
+  '/vehiculos/vehiculo/:id',
+  verificaToken,
+  (req: Request, res: Response) => {
+    let id = req.params.id;
+
+    Vehiculos.findById(id)
+    .populate('cliente')
+    .populate('marca')
+    .exec((err, data) => {
+        if (err) {
+          return res.status(400).json({
+            ok: false,
+            err
+          });
+        }
+
+        res.json({
+          ok: true,
+          data
+        });
+      });
+  }
+);
+
+// Vehiculo por ID del cliente
 app.get(
   '/vehiculos/cliente/:cliente',
   verificaToken,
@@ -47,6 +74,33 @@ app.get(
             err
           });
         }
+
+        res.json({
+          ok: true,
+          data
+        });
+      });
+  }
+);
+
+// Vehiculos por Marca y Submarca
+app.get('/vehiculos/find/:find', verificaToken, (req: Request, res: Response) => {
+    let find: string = req.params.find;
+
+    Vehiculos.find()
+      .populate('cliente')
+      .populate('marca')
+      .exec((err, data) => {
+        if (err) {
+          return res.status(400).json({
+            ok: false,
+            err
+          });
+        }
+
+        data = data.filter(vehiculo => {
+          return (vehiculo.placa + vehiculo.marca + vehiculo.submarca).toLowerCase().indexOf(find.toLowerCase()) > -1;
+        });
 
         res.json({
           ok: true,

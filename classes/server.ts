@@ -45,8 +45,8 @@ export default class Server {
 
   private mongoConnect() {
     mongoose.connect(
-      //'mongodb+srv://marco_diaz:pataPON3@cluster0-jm5fl.mongodb.net/sautdiaz?retryWrites=true&w=majority',
-      URL_DB,
+      'mongodb+srv://marco_diaz:pataPON3@cluster0-jm5fl.mongodb.net/sautdiaz?retryWrites=true&w=majority',
+      //URL_DB,
       { useNewUrlParser: true, useCreateIndex: true },
       (err: MongoError) => {
         if (err) throw err;

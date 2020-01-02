@@ -30,6 +30,7 @@ app.get('/servicios', verificaToken, (req: Request, res: Response) => {
     .populate({
       path: 'trabajador'
     })
+    // .populate('productos')
     .exec((err, data) => {
       if (err) {
         return res.status(400).json({
@@ -81,15 +82,50 @@ app.get('/servicios/:id', verificaToken, (req: Request, res: Response) => {
     });
 });
 
+app.get('/servicios/vehiculo/:id', verificaToken, (req: Request, res: Response) => {
+  let id = req.params.id;
+
+  Servicios.find({
+    vehiculo: id
+  })
+    .populate({
+      path: 'vehiculo',
+      populate: {
+        path: 'cliente'
+      }
+    })
+    .populate({
+      path: 'vehiculo',
+      populate: {
+        path: 'marca'
+      }
+    })
+    .populate({
+      path: 'trabajador'
+    })
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err
+        });
+      }
+
+      res.json({
+        ok: true,
+        data
+      });
+    });
+});
+
+// Por termino de busqueda
 app.get(
-  '/servicios/vehiculo/:vehiculo',
+  '/servicios/find/:find',
   verificaToken,
   (req: Request, res: Response) => {
-    let vehiculo = req.params.vehiculo;
+    let find = req.params.find;
 
-    Servicios.find({
-      vehiculo
-    })
+    Servicios.find()
       .populate({
         path: 'vehiculo',
         populate: {
@@ -105,13 +141,19 @@ app.get(
       .populate({
         path: 'trabajador'
       })
-      .exec((err, data) => {
+      .exec((err, data: any[]) => {
         if (err) {
           return res.status(400).json({
             ok: false,
             err
           });
         }
+
+        data = data.filter(servicio => {
+          return ((servicio['vehiculo']['marca']['nombre'] + servicio['vehiculo']['submarca'] + servicio['vehiculo']['cliente']['nombre']))
+          
+          .toLowerCase().indexOf(find.toLowerCase()) > -1;
+        });
 
         res.json({
           ok: true,
@@ -169,6 +211,7 @@ app.get(
   }
 );
 
+// Crear servicio
 app.post(
   '/servicios',
   [verificaToken, verificaAdmin_Role],
@@ -209,7 +252,7 @@ app.put(
       id,
       body,
       { new: true, runValidators: true },
-      (err, usuarioDB) => {
+      (err, data) => {
         if (err) {
           return res.status(400).json({
             ok: false,
@@ -219,7 +262,7 @@ app.put(
 
         res.json({
           ok: true,
-          usuario: usuarioDB
+          data: data
         });
       }
     );
