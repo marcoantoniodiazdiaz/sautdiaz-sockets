@@ -57,8 +57,13 @@ app.get(
         // console.log(data[0]);
 
         for (let i = 0; i < data.length; i++) {
-          total += +data[i].producto.precio * +data[i].cantidad;
-          totalCompra += +data[i].producto.compra * +data[i].cantidad;
+          if (data[i].isDiff === true) {
+            total += +data[i].precioDiferente * +data[i].cantidad;
+            totalCompra += +data[i].producto.compra * +data[i].cantidad;
+          } else {
+            total += +data[i].producto.precio * +data[i].cantidad;
+            totalCompra += +data[i].producto.compra * +data[i].cantidad;
+          }
 
           if (data[i].producto.departamento._id == '5d15130f3db192098e178ed0') {
             mo += +data[i].producto.precio * +data[i].cantidad;
@@ -103,6 +108,34 @@ app.post(
     });
   }
 );
+
+// Editar Precio de Producto
+app.put('/ventas/producto/:id', (req, res) => {
+  let id = req.params.id;
+  let body = _.pick(req.body, ['precioDiferente']);
+
+  Ventas.findByIdAndUpdate(
+    id,
+    {
+      isDiff: true,
+      precioDiferente: body.precioDiferente
+    },
+    { new: true, runValidators: true },
+    (err, data) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err
+        });
+      }
+
+      res.json({
+        ok: true,
+        data,
+      });
+    }
+  );
+});
 
 app.delete(
   '/ventas/:id',
