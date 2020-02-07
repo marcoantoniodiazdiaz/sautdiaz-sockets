@@ -40,6 +40,6 @@
     "devDependencies": {
         "@types/cors": "^2.8.4",
         "@types/express": "^4.16.0",
-        "@types/mongodb": "^3.1.32"
+        "@types/mongodb": ">=5.7.5"
     }
 }
