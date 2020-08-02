@@ -9,6 +9,7 @@ import Servicios, {
 export const usuariosConectados = new UsuariosLista();
 
 export const conectarCliente = (cliente: Socket) => {
+  console.log('\x1b[36m', "NUEVO CLIENTE", '\x1b[0m');
   const usuario = new Usuario(cliente.id);
   usuariosConectados.add(usuario);
 };
@@ -61,3 +62,15 @@ export const set_usuario = (cliente: Socket, io: socketIO.Server) => {
     });
   });
 };
+
+export const newCliente = (client: Socket, io: socketIO.Server) => {
+
+  client.on('newClient', (payload: any, callback) => {
+    console.log(payload)
+  });
+
+  let payload = {
+    ok: true
+  }
+  io.emit('newClient', payload);
+}

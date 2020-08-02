@@ -11,6 +11,9 @@ import bcrypt from 'bcrypt';
 
 import { app } from './router';
 import { GOOGLE_NOTIFICATIONS } from '../global/environment';
+import socketIO from 'socket.io';
+import { ClientesSocketController } from '../sockets/models/clientes-socket';
+import { Socket } from 'socket.io';
 
 app.get('/clientes', [verificaToken], (req: Request, res: Response) => {
   Clientes.find({})
@@ -85,8 +88,6 @@ app.post(
   [verificaToken, verificaAdmin_Role],
   (req: Request, res: Response) => {
     let body = req.body;
-
-    console.log(body);
 
     let clientes = new Clientes({
       nombre: body.nombre,
