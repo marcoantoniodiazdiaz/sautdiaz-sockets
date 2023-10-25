@@ -9,7 +9,7 @@ import Servicios, {
 export const usuariosConectados = new UsuariosLista();
 
 export const conectarCliente = (cliente: Socket) => {
-  console.log('\x1b[36m', "NUEVO CLIENTE", '\x1b[0m');
+  // console.log('\x1b[36m', "NUEVO CLIENTE", '\x1b[0m');
   const usuario = new Usuario(cliente.id);
   usuariosConectados.add(usuario);
 };

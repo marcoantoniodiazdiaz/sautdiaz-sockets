@@ -6,7 +6,6 @@ export class UsuariosLista {
 
   public add(user: Usuario) {
     this.lista.push(user);
-    console.log(this.lista);
     return user;
   }
 
@@ -17,8 +16,6 @@ export class UsuariosLista {
         break;
       }
     }
-    console.log('Usuario actualizado');
-    console.log(this.lista);
   }
 
   public getUsers() {

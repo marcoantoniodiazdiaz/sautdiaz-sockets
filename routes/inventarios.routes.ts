@@ -12,7 +12,7 @@ app.get('/productos', verificaToken, (req, res) => {
   Productos.find({
     codigo: {
       $not: {
-        $lte: 0 || 1
+        $lte: '0' || '1'
       }
     }
   })
@@ -87,7 +87,7 @@ app.get(
       },
       codigo: {
         $not: {
-          $lte: 0 || 1
+          $lte: '0' || '1',
         }
       }
     })

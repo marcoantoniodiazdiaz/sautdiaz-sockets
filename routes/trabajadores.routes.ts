@@ -26,6 +26,7 @@ app.get('/trabajadores', verificaToken, (req: Request, res: Response) => {
   });
 });
 
+
 app.post(
   '/trabajadores',
   [verificaToken, verificaAdmin_Role],

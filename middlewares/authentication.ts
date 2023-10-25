@@ -5,7 +5,7 @@ import * as HttpStatus from 'http-status-codes';
 export const verificaToken = (req: any, res: any, next: Function) => {
   const token: string = req.get('token')!;
   
-  jwt.verify(token, SEED, (err: Error, decoded: any) => {
+  jwt.verify(token, SEED, (err: any, decoded: any) => {
       if (err) {
           res;
           return res.status(HttpStatus.UNAUTHORIZED).json({

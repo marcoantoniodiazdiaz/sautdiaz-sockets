@@ -85,7 +85,7 @@ app.get('/clientes/nombre/:nombre',
 
 app.post(
   '/clientes',
-  [verificaToken, verificaAdmin_Role],
+  // [verificaToken, verificaAdmin_Role],
   (req: Request, res: Response) => {
     let body = req.body;
 
@@ -98,7 +98,7 @@ app.post(
       telefono: body.telefono
     });
 
-    Clientes.create(clientes, (err: MongoError, data: any) => {
+    Clientes.create(clientes, (err: any, data: any) => {
       if (err) {
         return res.status(400).json({
           ok: false,
@@ -247,7 +247,7 @@ app.put('/clientes/activate/:telefono', (req, res) => {
   let telefono = req.params.telefono;
   let body = _.pick(req.body, ['password', 'activated']);
 
-  if (body.password == [] || body.password == null) {
+  if (body.password) {
     return res.status(400).json({
       ok: false,
       err: 'Error al activar, datos no validos'
@@ -258,14 +258,13 @@ app.put('/clientes/activate/:telefono', (req, res) => {
 
   body.password = encypted;
 
-  Clientes.findOneAndUpdate(
-    {
-      telefono,
-      activated: false
-    },
+  Clientes.findOneAndUpdate({
+    telefono,
+    activated: false,
+  },
     body,
     { new: true, runValidators: true },
-    (err, data) => {
+    (err: any, data: any) => {
       if (err) {
         return res.status(400).json({
           ok: false,

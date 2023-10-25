@@ -29,10 +29,10 @@ export default class Server {
   }
 
   private escucharSockets() {
-    console.log('\x1b[36m', "SOCKET STATE: OK", '\x1b[0m');
+    // console.log('\x1b[36m', "SOCKET STATE: OK", '\x1b[0m');
 
     this.io.on('connection', cliente => {
-      console.log('\x1b[36m', "NUEVO CLIENTE", '\x1b[0m');
+      // console.log('\x1b[36m', "NUEVO CLIENTE", '\x1b[0m');
       // Conectar Cliente
       socket.conectarCliente(cliente);
       // Mensajes
@@ -47,13 +47,13 @@ export default class Server {
   }
 
   private mongoConnect() {
-    mongoose.connect('mongodb://localhost:27017/sautdiaz',
-      //'mongodb+srv://marco_diaz:pataPON3@cluster0-jm5fl.mongodb.net/sautdiaz?retryWrites=true&w=majority',
+    mongoose.connect(//'mongodb://localhost:27017/sautdiaz',
+      'mongodb://keen:keendc2000@159.89.182.10:27017/sautdiaz',
       //URL_DB,
-      { useNewUrlParser: true, useCreateIndex: true },
-      (err: MongoError) => {
+      { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+      (err: any) => {
         if (err) throw err;
-        // console.log('ATLAS conectado.');
+        console.log('MongoDB conectado.');
       }
     );
   }

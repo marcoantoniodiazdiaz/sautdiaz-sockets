@@ -5,7 +5,7 @@ import { app } from './router';
 import * as jwt from 'jsonwebtoken';
 import { SEED, TOKEN_CAD } from '../global/environment';
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   let body = req.body;
 
   if (!body.telefono || !body.password) {
@@ -17,7 +17,9 @@ app.post('/login', (req, res) => {
     });
   }
 
-  Clientes.findOne({ telefono: body.telefono }, (err, data) => {
+  console.log(await Clientes.find());
+
+  Clientes.findOne({ telefono: body.telefono }, (err: any, data: any) => {
     if (err) {
       return res.status(500).json({
         ok: false,
@@ -29,7 +31,6 @@ app.post('/login', (req, res) => {
       return res.status(400).json({
         ok: false,
         err: {
-          // message: '(Usuario) o contraseña incorrectos'
           message: 'Este telefono no corresponde a ningun cliente registrado'
         }
       });

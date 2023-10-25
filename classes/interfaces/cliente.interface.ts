@@ -9,7 +9,7 @@ export interface ICliente extends Document {
   email: string;
   role: string;
   password: string;
-  activated: string;
+  activated: boolean;
   devices: Object;
 }
 
