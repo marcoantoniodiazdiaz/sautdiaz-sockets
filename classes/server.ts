@@ -48,7 +48,7 @@ export default class Server {
 
   private mongoConnect() {
     mongoose.connect(//'mongodb://localhost:27017/sautdiaz',
-      'mongodb://localhost:27017/sautdiaz',
+      'mongodb://127.0.0.1:27017:27017/sautdiaz',
       //URL_DB,
       { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
       (err: any) => {
